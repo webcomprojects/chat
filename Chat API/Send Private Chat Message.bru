@@ -1,0 +1,24 @@
+meta {
+  name: Send Private Chat Message
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:8000/api/conversations/:conversationId/messages
+  body: json
+  auth: none
+}
+
+params:path {
+  conversationId: 1
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer 1|wBkW0J0clXbeHOLdBTzGRJk2ueTX06nokmtoCZ671800912c
+}
+
+body:json {
+  {"content": "Hello, this is a private chat message.", "type": "text"}
+}

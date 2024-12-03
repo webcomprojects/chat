@@ -1,0 +1,87 @@
+@extends('admin.layout')
+@section('title', 'مدیریت قبض ها')
+@section('actions')
+    @can('sendbill-create')
+        <a href="{{ route('sendbills.create') }}" class="btn btn-success btn-sm btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">ارسال قبض جدید</span>
+        </a>
+    @endcan
+@endsection
+
+@section('content')
+
+    @session('success')
+        <div class="alert alert-success" sendbill="alert">
+            {{ $value }}
+        </div>
+    @endsession
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">لیست قبض ها</h6>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="100px">شناسه</th>
+                    <th>نام کاربری</th>
+                    <th>نام و نام خانوادگی</th>
+                    <th>سمت</th>
+                    <th>شماره تماس</th>
+                    <th>نام واحد اقتصادی</th>
+                    <th>وضعیت</th>
+                    <th width="300px">اقدامات</th>
+                </tr>
+                @foreach ($sendbills as $key => $sendbill)
+                    <tr>
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $sendbill->user->email }}</td>
+                        <td>{{ $sendbill->name }}</td>
+                        <td>{{ $sendbill->job }}</td>
+                        <td>{{ $sendbill->phone }}</td>
+                        <td>{{ $sendbill->economic_unit }}</td>
+                        <td>{!! $sendbill->status !!}</td>
+                        <td>
+                            {{-- <a href="{{ route('sendbills.show', $sendbill->id) }}" class="btn btn-info btn-sm btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-list"></i>
+                                </span>
+                                <span class="text">نمایش</span>
+                            </a> --}}
+                            @can('sendbill-edit')
+                                <a href="{{ route('sendbills.edit', $sendbill->id) }}" class="btn btn-primary btn-sm btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <span class="text">ویرایش</span>
+                                </a>
+                            @endcan
+
+                            @can('sendbill-delete')
+                                <form method="POST" action="{{ route('sendbills.destroy', $sendbill->id) }}" style="display:inline">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button ype="submit" class="btn btn-danger btn-sm btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">حذف</span>
+                                    </button>
+                                </form>
+                            @endcan
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
+
+
+    {!! $sendbills->links('pagination::bootstrap-5') !!}
+
+
+@endsection
