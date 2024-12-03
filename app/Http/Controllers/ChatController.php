@@ -120,7 +120,7 @@ class ChatController extends Controller
         $current_user = $request->user();
 
         $request->validate([
-            'mobile' => 'required|regex:/^[0][9][0-9]{9,9}$/',
+            'mobile' => 'required|digits:11|regex:/^[0][9][0-9]{9,9}$/',
         ]);
 
         $existingUser = verification_code::where('mobile' , $mobile)->exists();
@@ -132,7 +132,6 @@ class ChatController extends Controller
             'user_id' => $current_user->id,
             'mobile' => $mobile,
         ]);
-
 
         return response()->json(['status' => 'مخاطب با موفقیت اضافه شد!', 'contact' => $contact]);
     }

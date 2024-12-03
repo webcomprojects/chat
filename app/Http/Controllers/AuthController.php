@@ -22,7 +22,7 @@ class AuthController extends Controller
         $code = rand(100000, 999999);
 
         $request->validate([
-            'mobile' => 'required|regex:/^[0][9][0-9]{9,9}$/',
+            'mobile' => 'required|digits:11|regex:/^[0][9][0-9]{9,9}$/',
         ]);
 
 
@@ -142,7 +142,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'mobile' => 'required|regex:/^[0][9][0-9]{9,9}$/',
+            'mobile' => 'required|digits:11|regex:/^[0][9][0-9]{9,9}$/',
             'password' => 'required',
         ]);
 

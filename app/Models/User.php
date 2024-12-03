@@ -78,7 +78,7 @@ class User extends Authenticatable
         foreach ($user->contacts as $contact) {
             $contacts [] = User::where('mobile', $contact->mobile)->first();
         }
-        return $contacts;
+        return !empty($contacts) ? $contacts : [];
     }
 
 }
