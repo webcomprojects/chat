@@ -24,7 +24,7 @@ class Conversation extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function scopeGetRole($query)
+    public function scopeGetRole($query, $user_id)
     {
         $roles = ['owner', 'admin', 'user'];
 
@@ -32,8 +32,8 @@ class Conversation extends Model
             $clonedQuery = clone $query;
 
             if (
-                $clonedQuery->whereHas('users', function ($q) use ($role) {
-                    $q->where('users.id', auth()->id())
+                $clonedQuery->whereHas('users', function ($q) use ($role, $user_id) {
+                    $q->where('users.id', $user_id)
                         ->where('conversation_user.type', $role);
                 })->exists()
             ) {

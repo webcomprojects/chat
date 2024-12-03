@@ -39,5 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/conversation/sendmessage', [ChatController::class, 'sendMessage']);
     Route::post('/conversation/create', [ChatController::class, 'createRoom']);
     Route::post('/conversation/join', [ChatController::class, 'joinRoom']);
+    Route::post('/conversation/addroom', [ChatController::class, 'addRoom']);
+    Route::post('/user/addcontact', [ChatController::class, 'addContact']);
+    Route::get('/user/contacts', [ChatController::class, 'contacts']);
 
 });

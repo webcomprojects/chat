@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'mobile',
         'password',
     ];
@@ -66,6 +66,19 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+    public function allcontacts()
+    {
+        $user = $this->with('contacts')->where('id' , $this->id)->first();
+        foreach ($user->contacts as $contact) {
+            $contacts [] = User::where('mobile', $contact->mobile)->first();
+        }
+        return $contacts;
     }
 
 }
