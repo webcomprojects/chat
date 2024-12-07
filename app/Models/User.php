@@ -81,4 +81,19 @@ class User extends Authenticatable
         return !empty($contacts) ? $contacts : [];
     }
 
+    public function inContact($mobile)
+    {
+        $user = $this->with('contacts')->where('id' , $this->id)->first();
+        foreach ($user->contacts as $contact) {
+            $contacts [] = User::where('mobile', $contact->mobile)->first();
+        }
+
+        $contacts_object = collect($contacts);
+
+        $user_contact = User::where('mobile', $mobile)->first();
+
+        $is_contact = in_array($user_contact->id , $contacts_object->pluck('id')->toArray());
+        return $is_contact;
+    }
+
 }

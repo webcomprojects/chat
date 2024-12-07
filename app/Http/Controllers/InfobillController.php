@@ -114,7 +114,7 @@ class InfobillController extends Controller
         if($total > 24){
             return redirect()->back()->with('error', 'مجموع مقادیر تخصیص می بایست ۲۴ باشد.');
         }
-        
+
         $user = Auth::user();
 
         $validated['name'] = $user->name;

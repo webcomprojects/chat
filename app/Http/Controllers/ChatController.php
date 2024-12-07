@@ -65,8 +65,8 @@ class ChatController extends Controller
     {
 
         $conversation = Conversation::create([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
+            'name' => $request->input('name', 'بدون نام'),
+            'type' => $request->input('type', 'private'),
             'room_id' => Str::random(14),
         ]);
 
@@ -119,14 +119,19 @@ class ChatController extends Controller
         $mobile = $request->mobile;
         $current_user = $request->user();
 
+        if($current_user->inContact($mobile)){
+            return response()->json(['status' => 'این کاربر در لیست مخاطبین شما وجود دارد!'], 400);
+        }
+
         $request->validate([
             'mobile' => 'required|digits:11|regex:/^[0][9][0-9]{9,9}$/',
         ]);
 
         $existingUser = verification_code::where('mobile' , $mobile)->exists();
         if(!$existingUser){
-            return response()->json(['status' => 'هنوز اکانتی برای این شماره موبایل وجود ندارد!']);
+            return response()->json(['status' => 'هنوز اکانتی برای این شماره موبایل وجود ندارد!'], 400);
         }
+
 
         $contact = Contact::create([
             'user_id' => $current_user->id,
