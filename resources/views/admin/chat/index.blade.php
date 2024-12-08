@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -38,4 +38,56 @@
 
 </body>
 
-</html>
+</html> --}}
+
+
+
+<!DOCTYPE html>
+
+<head>
+    <title>Pusher Test</title>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+
+
+    <script>
+        var room_id = 'j5pseF8YBvW6bY';
+
+        function streamData(e) {
+            console.log(e);
+
+        }
+    </script>
+
+
+    <script src="http://127.0.0.1:8000/build/assets/app-7c68810e.js"></script>
+
+    {{-- <script>
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('80ee95e3f2e5e8050987', {
+            cluster: 'mt1'
+        });
+
+
+
+        var room_id = 'j5pseF8YBvW6bY';
+        var channel = pusher.subscribe(`rooms.${room_id}`);
+        channel.bind('ChatEvent', function(data) {
+            alert(JSON.stringify(data));
+        });
+
+        channel.bind(`rooms.${room_id}`)
+            .listen('ChatEvent', (event) => {
+                console.log(event);
+            });
+    </script> --}}
+</head>
+
+<body>
+    <h1>Pusher Test</h1>
+    <p>
+        Try publishing an event to channel <code>my-channel</code>
+        with event name <code>my-event</code>.
+    </p>
+</body>
