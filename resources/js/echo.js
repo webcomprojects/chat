@@ -20,29 +20,30 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+// var room_id = localStorage.getItem('room_id');
 
 
-    window.Echo.private(`rooms.${room_id}`)
-        .listen('ChatEvent', (e) => {
-            streamData(e);
-        });
+
+window.Echo.private(`rooms.${room_id}`)
+    .listen('ChatEvent', (e) => {
+        streamData(e);
+    });
 
 
-    // window.Echo.join(`online`)
-    //     .here(users => {
-    //         console.log('users');
-    //     })
-    //     .joining(user => {
-    //         console.log(' joined');
-    //     })
-    //     .leaving(user => {
-    //         console.log(' left');
-    //     })
-    //     .error(error => {
-    //         console.error(error);
-    //     });
 
-});
+// window.Echo.join(`online`)
+//     .here(users => {
+//         console.log('users');
+//     })
+//     .joining(user => {
+//         console.log(' joined');
+//     })
+//     .leaving(user => {
+//         console.log(' left');
+//     })
+//     .error(error => {
+//         console.error(error);
+//     });
+
 
 
