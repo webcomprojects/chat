@@ -13,12 +13,19 @@ window.Pusher = Pusher;
 //     enabledTransports: ['ws', 'wss'],
 // });
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    forceTLS: true
-});
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+//     forceTLS: false,
+//     authEndpoint: 'https://royal.webcomcoai.com/broadcasting/auth',
+//     auth: {
+//         headers: {
+//             'X-CSRF-TOKEN': window.Laravel.csrfToken,
+//             'Authorization': 'Bearer 1|zUWYsBoj7dgths0ENrfp95L0oih5pkTSRdar4abH96a43b6d',
+//         }
+//     }
+// });
 
 // var room_id = localStorage.getItem('room_id');
 

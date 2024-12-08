@@ -45,9 +45,7 @@ class AuthController extends Controller
 
         Cache::put($cache_key, $request->mobile, now()->addMinutes(6));
 
-        // اینجا می‌توانید کد ارسال پیامک را اضافه کنید
-        // مثلا:
-        // SmsService::send($request->mobile, "Your verification code is: $code");
+        send_sms($request->mobile, $code);
 
         return response()->json(['message' => 'کد تایید با موفقیت ارسال شد.', 'cache_key' => $cache_key, 'code' => $code], 200);
     }
@@ -190,9 +188,7 @@ class AuthController extends Controller
         }
 
 
-
-        // اینجا می‌توانید کد ارسال پیامک را اضافه کنید
-        // SmsService::send($request->mobile, "Your verification code is: $code");
+        send_sms($cachedMobile, $code);
 
         return response()->json(['message' => 'کد تایید با موفقیت ارسال شد.', 'code' => $code], 200);
     }

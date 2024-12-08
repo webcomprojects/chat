@@ -58,9 +58,7 @@ class OtpController extends Controller
         setcookie('mobile', $request->mobile, time() + 300);  /* expire in 1 hour */
 
 
-        // اینجا می‌توانید کد ارسال پیامک را اضافه کنید
-        // مثلا:
-        // SmsService::send($request->mobile, "Your verification code is: $code");
+        send_sms($request->mobile, $code);
 
         return response()->json(['status' => 'ok', 'url' => route('verify.form')], 200);
     }
@@ -90,9 +88,7 @@ class OtpController extends Controller
             setcookie('mobile', $_COOKIE["mobile"], time() + 300);  /* expire in 1 hour */
 
 
-            // اینجا می‌توانید کد ارسال پیامک را اضافه کنید
-            // مثلا:
-            // SmsService::send($request->mobile, "Your verification code is: $code");
+            send_sms($_COOKIE["mobile"], $code);
 
             return response()->json(['status' => 'ok', 'url' => route('verify.form')], 200);
         } else {
@@ -138,7 +134,7 @@ class OtpController extends Controller
 
     public function register(Request $request)
     {
-        
+
         // $cachedMobile = Cache::get($request->cach_key);
 
         // $existingUser = User::where('mobile', isset($request->mobile) ? $request->mobile : $cachedMobile)->first();
@@ -248,8 +244,7 @@ class OtpController extends Controller
 
 
 
-        // اینجا می‌توانید کد ارسال پیامک را اضافه کنید
-        // SmsService::send($request->mobile, "Your verification code is: $code");
+        send_sms($cachedMobile, $code);
 
         return response()->json(['message' => 'کد تایید با موفقیت ارسال شد.', 'code' => $code], 200);
     }
